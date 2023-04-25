@@ -37,3 +37,13 @@ class FileSourceConnect():
       .mode(write_mode)
       .save(output_path)
     )
+
+  def read_file_stream_load_test(self, spark, input_path, file_type, schema_location, max_files=5):
+    """ Used for load testing and limiting the number of files per a micro-batch"""
+    return (spark.readStream
+        .format("cloudFiles")
+        .option("cloudFiles.format", file_type)
+        .option("cloudFiles.schemaLocation", schema_location)
+        .option("maxFilesPerTrigger", max_files)
+        .load(input_path)
+      )
