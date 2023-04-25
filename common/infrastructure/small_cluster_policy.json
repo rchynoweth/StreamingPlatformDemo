@@ -1,0 +1,41 @@
+{
+  "spark_conf.fs.azure.account.oauth2.client.id": {
+    "type": "fixed",
+    "value": "{{secrets/<SECRET SCOPE>/<CLIENT ID KEY>}}"
+  },
+  "spark_conf.fs.azure.account.oauth.provider.type": {
+    "type": "fixed",
+    "value": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider"
+  },
+  "spark_conf.fs.azure.account.oauth2.client.endpoint": {
+    "type": "fixed",
+    "value": "https://login.microsoftonline.com/<TENANT ID>/oauth2/token"
+  },
+  "spark_conf.fs.azure.account.auth.type": {
+    "type": "fixed",
+    "value": "OAuth"
+  },
+  "spark_conf.fs.azure.account.oauth2.client.secret": {
+    "type": "fixed",
+    "value": "{{secrets/<SECRET SCOPE>/<CLIENT SECRET KEY>}}"
+  },
+  "spark_version": {
+    "type": "fixed",
+    "value": "11.3.x-cpu-ml-scala2.12"
+  },
+  "autoscale.min_workers": {
+    "type": "fixed",
+    "value": 1,
+    "hidden": true
+  },
+  "autoscale.max_workers": {
+    "type": "fixed",
+    "value": 5,
+    "hidden": true
+  },
+  "autotermination_minutes": {
+    "type": "fixed",
+    "value": 60,
+    "hidden": true
+  }
+}

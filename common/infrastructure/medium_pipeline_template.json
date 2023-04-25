@@ -1,0 +1,39 @@
+{
+    "clusters": [
+        {
+            "label": "default",
+            "autoscale": {
+                "min_workers": 4,
+                "max_workers": 10,
+                "mode": "ENHANCED"
+            }
+        }
+    ],
+    "development": true,
+    "continuous": false,
+    "channel": "CURRENT",
+    "edition": "ADVANCED",
+    "photon": false,
+    "libraries": [
+        {
+            "notebook": {
+                "path": "/path/to/notebook1"
+            }
+        },
+        {
+            "notebook": {
+                "path": "/path/to/notebook2"
+            }
+        }
+    ],
+    "name": "rac_sample_pipeline",
+    "storage": "abfss://container@storage.dfs.core.window.net/pipelines/PIPELINE_NAME>",
+    "configuration": {
+        "spark.hadoop.fs.azure.account.oauth2.client.id": "{{secrets/<SECRET_SCOPE>/<SECRET_KEY>}}",
+        "spark.hadoop.fs.azure.account.oauth.provider.type": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
+        "spark.hadoop.fs.azure.account.oauth2.client.endpoint": "https://login.microsoftonline.com/<TENANT_ID>/oauth2/token",
+        "spark.hadoop.fs.azure.account.auth.type": "OAuth",
+        "spark.hadoop.fs.azure.account.oauth2.client.secret": "{{secrets/<SECRET_SCOPE>/<SECRET_KEY>}}"
+    },
+    "target": "<TARGET DATABASE>"
+}
