@@ -47,3 +47,11 @@ class FileSourceConnect():
         .option("maxFilesPerTrigger", max_files)
         .load(input_path)
       )
+
+  def batch_read_files(self, spark, input_path, file_type):
+    return (
+      spark
+      .read
+      .format(file_type)
+      .load(input_path)
+    )
