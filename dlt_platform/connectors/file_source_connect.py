@@ -31,4 +31,9 @@ class FileSourceConnect():
     """
     Writes a given streaming dataframe to an output location. 
     """
-    streamDF.write.format(file_type).mode(write_mode).save(output_path)
+    (streamDF
+      .write
+      .format(file_type)
+      .mode(write_mode)
+      .save(output_path)
+    )
