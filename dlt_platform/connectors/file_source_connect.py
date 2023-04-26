@@ -44,7 +44,7 @@ class FileSourceConnect():
         .format("cloudFiles")
         .option("cloudFiles.format", file_type)
         .option("cloudFiles.schemaLocation", schema_location)
-        .option("maxFilesPerTrigger", max_files)
+        .option("cloudFiles.maxFilesPerTrigger", max_files)
         .load(input_path)
       )
 
