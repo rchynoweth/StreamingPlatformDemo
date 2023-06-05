@@ -31,4 +31,27 @@ class FileSourceConnect():
     """
     Writes a given streaming dataframe to an output location. 
     """
-    streamDF.write.format(file_type).mode(write_mode).save(output_path)
+    (streamDF
+      .write
+      .format(file_type)
+      .mode(write_mode)
+      .save(output_path)
+    )
+
+  def read_file_stream_load_test(self, spark, input_path, file_type, schema_location, max_files=5):
+    """ Used for load testing and limiting the number of files per a micro-batch"""
+    return (spark.readStream
+        .format("cloudFiles")
+        .option("cloudFiles.format", file_type)
+        .option("cloudFiles.schemaLocation", schema_location)
+        .option("cloudFiles.maxFilesPerTrigger", max_files)
+        .load(input_path)
+      )
+
+  def batch_read_files(self, spark, input_path, file_type):
+    return (
+      spark
+      .read
+      .format(file_type)
+      .load(input_path)
+    )
