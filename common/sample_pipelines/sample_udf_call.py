@@ -1,4 +1,8 @@
 # Databricks notebook source
+# MAGIC %pip install git+https://github.com/rchynoweth/StreamingPlatformDemo.git@main
+
+# COMMAND ----------
+
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 from dlt_platform.transforms.call_api_transform import UDFTransform

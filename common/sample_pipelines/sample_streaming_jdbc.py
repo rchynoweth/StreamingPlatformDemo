@@ -1,4 +1,8 @@
 # Databricks notebook source
+# MAGIC %pip install git+https://github.com/rchynoweth/StreamingPlatformDemo.git@main
+
+# COMMAND ----------
+
 from dlt_platform.connectors.jdbc_connect import JDBCConnect
 
 # COMMAND ----------

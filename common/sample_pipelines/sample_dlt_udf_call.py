@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %pip install "https://github.com/rchynoweth/StreamingTemplates/releases/download/main/dlt_platform-0.0.1-py3-none-any.whl"
+# MAGIC %pip install git+https://github.com/rchynoweth/StreamingPlatformDemo.git@main
 
 # COMMAND ----------
 

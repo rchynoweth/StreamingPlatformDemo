@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %pip install git+https://github.com/rchynoweth/StreamingTemplates.git@main
+# MAGIC %pip install git+https://github.com/rchynoweth/StreamingPlatformDemo.git@main
 
 # COMMAND ----------
 
