@@ -1,4 +1,8 @@
 # Databricks notebook source
+# MAGIC %pip install git+https://github.com/rchynoweth/StreamingTemplates.git@main
+
+# COMMAND ----------
+
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
@@ -7,7 +11,7 @@ from dlt_platform.connectors.kafka_connect import KafkaConnect
 
 # COMMAND ----------
 
-secret_scope = ''
+secret_scope = 'oetrta'
 kafka_servers = dbutils.secrets.get(secret_scope, "kafka-bootstrap-servers-plaintext")
 
 topic = 'ryan_chynoweth_kafka_test2'
@@ -39,10 +43,10 @@ input_stream = (spark
 # COMMAND ----------
 
 # DBTITLE 1,Write to Kafka
-k.write_kafka_stream(df=input_stream, key_col='eventId', value_cols=['time', 'action'], topic = topic, checkpoint_location=checkpoint_location)
+k.write_kafka_stream_plaintext(df=input_stream, key_col='eventId', value_cols=['time', 'action'], topic = topic, checkpoint_location=checkpoint_location)
 
 # COMMAND ----------
 
 # DBTITLE 1,Read from Kafka
-df = k.read_kafka_stream(spark=spark,topic=topic)
-display(df.select(col('key').cast('string'), col("value").cast("string")))
+# df = k.read_kafka_stream(spark=spark,topic=topic)
+# display(df.select(col('key').cast('string'), col("value").cast("string")))

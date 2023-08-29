@@ -1,9 +1,11 @@
 # Databricks notebook source
 # MAGIC %md # Load Test Notebook - Data Generation
-# MAGIC 
+# MAGIC
 # MAGIC There are two options for generating data. 
 # MAGIC 1. Load json data into a batch dataframe and use a loop to continuously write json records to storage
 # MAGIC 1. Additionally, read the json records (output of the one above) and write to Kafka. 
+# MAGIC
+# MAGIC
 
 # COMMAND ----------
 
@@ -34,9 +36,9 @@ json_schema_location = '/dlt_platform_test/streaming_schemas/events'
 
 # COMMAND ----------
 
-print(f"---- Num Rows: {spark.read.json(input_dir).count()}")
-print(f"---- Num Files: {len(dbutils.fs.ls(input_dir))}")
-print(f"---- Apprx Rows Per File: {spark.read.json(input_dir).count()/len(dbutils.fs.ls(input_dir))}")
+# print(f"---- Num Rows: {spark.read.json(input_dir).count()}")
+# print(f"---- Num Files: {len(dbutils.fs.ls(input_dir))}")
+# print(f"---- Apprx Rows Per File: {spark.read.json(input_dir).count()/len(dbutils.fs.ls(input_dir))}")
 
 # COMMAND ----------
 

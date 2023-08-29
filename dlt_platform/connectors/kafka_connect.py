@@ -77,7 +77,18 @@ class KafkaConnect():
      .option("topic", topic)
      .start()
     )
-    
+
+  def read_kafka_stream_plaintext(self, spark, topic, starting_offsets = "earliest", fail_on_data_loss="false"):
+    return (spark.readStream
+            .format("kafka")
+            .option("kafka.security.protocol", "PLAINTEXT")
+            .option("kafka.bootstrap.servers", self.kafka_bootstrap_servers) 
+            .option("subscribe", topic )
+            .option("startingOffsets", starting_offsets )
+            .option("failOnDataLoss", fail_on_data_loss)
+            .load()
+           )
+        
     
   def write_kafka_stream(self, df, key_col, value_cols, topic, checkpoint_location, username, security_protocol, sasl_mechanism):
     """

@@ -1,0 +1,86 @@
+{
+    "name": "RAC Testing",
+    "email_notifications": {
+        "no_alert_for_skipped_runs": false
+    },
+    "webhook_notifications": {},
+    "timeout_seconds": 0,
+    "max_concurrent_runs": 1,
+    "tasks": [
+        {
+            "task_key": "Write_files",
+            "run_if": "ALL_SUCCESS",
+            "notebook_task": {
+                "notebook_path": "/Repos/ryan.chynoweth@databricks.com/StreamingPlatformDemo/tests/load_data_files_test",
+                "source": "WORKSPACE"
+            },
+            "job_cluster_key": "FileLoader",
+            "timeout_seconds": 0,
+            "email_notifications": {},
+            "notification_settings": {
+                "no_alert_for_skipped_runs": false,
+                "no_alert_for_canceled_runs": false,
+                "alert_on_last_attempt": false
+            }
+        },
+        {
+            "task_key": "Write_Kafka",
+            "run_if": "ALL_SUCCESS",
+            "notebook_task": {
+                "notebook_path": "/Repos/ryan.chynoweth@databricks.com/StreamingPlatformDemo/tests/write_kafka_test",
+                "source": "WORKSPACE"
+            },
+            "job_cluster_key": "Write_Kafka_cluster",
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        }
+    ],
+    "job_clusters": [
+        {
+            "job_cluster_key": "FileLoader",
+            "new_cluster": {
+                "cluster_name": "",
+                "spark_version": "11.3.x-scala2.12",
+                "aws_attributes": {
+                    "first_on_demand": 1,
+                    "availability": "SPOT_WITH_FALLBACK",
+                    "zone_id": "us-west-2a",
+                    "instance_profile_arn": "<INSTANCE_PROFILE_HERE>",
+                    "spot_bid_price_percent": 100,
+                    "ebs_volume_count": 0
+                },
+                "node_type_id": "i3.xlarge",
+                "spark_env_vars": {
+                    "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+                },
+                "enable_elastic_disk": false,
+                "data_security_mode": "SINGLE_USER",
+                "runtime_engine": "STANDARD",
+                "num_workers": 4
+            }
+        },
+        {
+            "job_cluster_key": "Write_Kafka_cluster",
+            "new_cluster": {
+                "spark_version": "11.3.x-scala2.12",
+                "aws_attributes": {
+                    "first_on_demand": 1,
+                    "availability": "SPOT_WITH_FALLBACK",
+                    "zone_id": "us-west-2a",
+                    "instance_profile_arn": "<INSTANCE_PROFILE_HERE>",
+                    "spot_bid_price_percent": 100,
+                    "ebs_volume_count": 0
+                },
+                "node_type_id": "i3.xlarge",
+                "spark_env_vars": {
+                    "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+                },
+                "enable_elastic_disk": false,
+                "data_security_mode": "SINGLE_USER",
+                "runtime_engine": "STANDARD",
+                "num_workers": 5
+            }
+        }
+    ],
+    "format": "MULTI_TASK"
+}
