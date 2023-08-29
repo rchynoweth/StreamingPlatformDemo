@@ -1,8 +1,4 @@
 # Databricks notebook source
-# MAGIC %pip install git+https://github.com/rchynoweth/StreamingTemplates.git@main
-
-# COMMAND ----------
-
 import dlt
 
 # COMMAND ----------
@@ -32,9 +28,15 @@ def kafka_events():
   return (k.read_kafka_stream_plaintext(spark=spark,topic=topic)
           .select(col('key').cast('string'), 
                   col("value").cast("string"),
-                  get_json_object(col("value").cast("string"), '$.time'),
-                  get_json_object(col("value").cast("string"), '$.action')
+                  get_json_object(col("value").cast("string"), '$.time').alias('time'),
+                  get_json_object(col("value").cast("string"), '$.action').alias('action')
                   )
+          # .select(
+          #   col("key"),
+          #   col("value"),
+          #   get_json_object(col("value"), '$.time').alias('time'),
+          #   get_json_object(col("value"), '$.action').alias('action')
+          # )
           )
 
 
