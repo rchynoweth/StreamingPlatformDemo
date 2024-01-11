@@ -81,7 +81,7 @@ class JDBCConnect():
     )
 
 
-  def stream_write_jdbc_table(self, df, jdbc_table_name, checkpoint_location, save_mode='append'):
+  def stream_write_jdbc_table(self, df, jdbc_table_name, available_now=None, processing_time="0 seconds", checkpoint_location=None,, save_mode='append'):
     """
     Writes a given Spark Streaming DataFrame to a JDBC table using a foreach batch function 
 
@@ -90,9 +90,12 @@ class JDBCConnect():
     :param checkpoint_location: stream checkpoint location i.e. "abfss://..."
     :param save_mode: default is append
     """
+    assert available_now == None or processing_time == None
+    assert checkpoint_location is not None
+
     (df.writeStream
       .option("checkpointLocation", checkpoint_location)
-      # .trigger(Once=True) # parameterize this to allow different trigger types?
+      .trigger(availableNow=available_now, processingTime=processing_time)
       .foreachBatch(lambda df,epochId: self.foreach_write_stream(df, epochId, jdbc_table_name, save_mode)) 
       .start()
     )
